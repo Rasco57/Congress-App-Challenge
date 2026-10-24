@@ -1,0 +1,1 @@
+This is my submission for the Congressional App Challenge. It is simply a viewer to see any MLB player's stats, specifically OPS, OBP, and SLG. Main.py is the primary file, dataPull.py has all of my code for pulling data, and ai.py was written by ChatGPT, and that just displays everything.
