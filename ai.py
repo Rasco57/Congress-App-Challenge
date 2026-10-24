@@ -1,25 +1,5 @@
 # Notice: All code below is written by ChatGPT. However, the code has been reviewed. All other code is written by me.
 
-"""
-baseball_rates.py
-
-Calculate daily and cumulative SLG, OBP, and OPS from a pandas DataFrame,
-then plot cumulative OPS with Plotly hover details.
-
-Expected input:
-    One row per plate appearance, with the listed event columns and a date
-    column. Event columns should contain 1/0 or True/False indicators.
-
-Usage:
-    from baseball_rates import calculate_rates, plot_ops
-
-    rates = calculate_rates(df)
-    fig = plot_ops(rates)
-    fig.show()
-
-If the input has multiple rows per event/date, each row is treated as one
-plate appearance/event record. The module sums the event indicators per day.
-"""
 
 from __future__ import annotations
 
@@ -86,32 +66,7 @@ def calculate_rates(
     date_column: str = "date",
     cumulative: bool = True,
 ) -> pd.DataFrame:
-    """
-    Return one row per date with daily and cumulative baseball rate stats.
 
-    Rates:
-    SLG = total bases / at-bats
-    OBP = (hits + walks + hit-by-pitches) /
-            (at-bats + walks + hit-by-pitches + sacrifice flies)
-    OPS = OBP + SLG
-
-    Parameters
-    ----------
-    df:
-        DataFrame containing the event columns. Column order does not matter.
-        Event columns should be indicator values (1/0 or True/False).
-    date_column:
-        Name of the date column.
-    cumulative:
-        If True (default), include cumulative counts and rates alongside daily
-        rates. Cumulative values are calculated chronologically.
-
-    Notes
-    -----
-    Missing event columns are treated as zero. Missing dates are dropped.
-    ``truncated_pa`` is not added to any formula because it does not identify
-    a completed outcome. It is still accepted as an input column.
-    """
     if not isinstance(df, pd.DataFrame):
         raise TypeError("df must be a pandas DataFrame.")
 
@@ -199,22 +154,7 @@ def plot_ops(
     show_daily_rates: bool = False,
     title: Optional[str] = None,
 ):
-    """
-    Create an interactive Plotly line graph.
 
-    Parameters
-    ----------
-    rates:
-        Output from ``calculate_rates``.
-    cumulative:
-        If True, graph cumulative OPS; otherwise graph daily OPS.
-    show_daily_rates:
-        If True, graph daily SLG, OBP, and OPS as three lines instead of OPS
-        alone. When cumulative=True, this option graphs cumulative SLG, OBP,
-        and OPS.
-    title:
-        Optional chart title.
-    """
     if "date" not in rates.columns:
         raise ValueError("rates must contain a 'date' column.")
 
